@@ -4,10 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sample Form</title>
+  <style>
+    #other-region-container {
+      display: none;
+      margin-top: 8px;
+    }
+  </style>
 </head>
 <body>
   <h1>Registration Form</h1>
-  <form action="/submit" method="post">
+  <form action="https://webhook.site/a2da0f2b-1e58-4771-8b4a-7f2e67f673df" method="post">
     <label for="gender">Gender:</label>
     <select id="gender" name="gender" required>
       <option value="">Select Gender</option>
@@ -26,8 +32,15 @@
       <option value="north_america">North America</option>
       <option value="europe">Europe</option>
       <option value="asia">Asia</option>
+      <option value="oceania">Oceania</option>
       <option value="other">Other</option>
-    </select><br/><br/>
+    </select><br/>
+
+    <div id="other-region-container">
+      <label for="other-region">Please specify:</label><br/>
+      <input type="text" id="other-region" name="other_region" />
+    </div>
+    <br/>
 
     <label for="phone">Phone Number:</label><br/>
     <input type="tel" id="phone" name="phone" pattern="[0-9+\-\s]+" placeholder="+1 555 123 4567" required /><br/><br/>
@@ -37,5 +50,22 @@
 
     <button type="submit">Submit</button>
   </form>
+
+  <script>
+    const regionSelect = document.getElementById('region');
+    const otherRegionContainer = document.getElementById('other-region-container');
+    const otherRegionInput = document.getElementById('other-region');
+
+    regionSelect.addEventListener('change', function() {
+      if (this.value === 'other') {
+        otherRegionContainer.style.display = 'block';
+        otherRegionInput.setAttribute('required', 'required');
+      } else {
+        otherRegionContainer.style.display = 'none';
+        otherRegionInput.removeAttribute('required');
+        otherRegionInput.value = '';
+      }
+    });
+  </script>
 </body>
 </html>
